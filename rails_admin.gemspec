@@ -27,7 +27,7 @@ Gem::Specification.new do |spec|
   spec.homepage = 'https://github.com/sferik/rails_admin'
   spec.name = 'rails_admin'
   spec.require_paths = %w[lib]
-  spec.required_ruby_version     = '>= 1.9.4'
+  spec.required_ruby_version     = '>= 1.9.3'
   spec.required_rubygems_version = '>= 1.8.11'
   spec.summary = %q(Admin for Rails)
   spec.test_files = Dir['spec/**/*'].reject { |f| f.end_with? 'log' }
