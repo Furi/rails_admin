@@ -1,3 +1,18 @@
+%ul{class: "breadcrumb"}
+  %li
+    %span.show= link_to "New Account", rails_admin.new_path('Account'), class:"btn btn-info"
+  %li
+    %span.show= link_to "New Contact", rails_admin.new_path('Contact'), class:"btn btn-info"
+  %li
+    %span.show= link_to "New Journal", rails_admin.new_path('Journal'), class:"btn btn-info"
+  %li
+    %span.show= link_to "New Investment", rails_admin.new_path('Investment'), class:"btn btn-info"
+  %li
+    %span.show= link_to "New Employment", rails_admin.new_path('Employment'), class:"btn btn-info"
+  %li
+    %span.show= link_to "New Revenue", rails_admin.new_path('Revenue'), class:"btn btn-info"
+  %li
+    %span.show= link_to "New Market Intelligence", rails_admin.new_path('MarketIntelligence'), class:"btn btn-info"
 - if @abstract_models
   %table.table.table-condensed.table-striped
     %thead
