@@ -21,7 +21,7 @@ module RailsAdmin
             am = amc.abstract_model
             wording = associated.send(amc.object_label_method)
             can_see = !am.embedded? && (show_action = v.action(:show, am, associated))
-            if am.model_name == "Account"
+            if ((am.model_name == "Account") && (bindings[:controller].action_name == "index"))
               #use the current model instead of Account
               result_url = v.url_for(action: show_action.action_name, model_name: bindings[:object].class.name, id: bindings[:object].id)
             else
