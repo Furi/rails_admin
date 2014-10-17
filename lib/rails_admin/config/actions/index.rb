@@ -27,7 +27,7 @@ module RailsAdmin
 
         register_instance_option :controller do
           proc do
-            @objects = @objects.empty? ? list_entries : @objects
+            @objects = (@objects.nil? || @objects.empty?) ? list_entries : @objects
 
             unless @model_config.list.scopes.empty?
               if params[:scope].blank?
