@@ -29,8 +29,8 @@ module RailsAdmin
                 result_url = v.url_for(action: show_action.action_name, model_name: am.to_param, id: associated.id)
               end
             end
-            can_see ? v.link_to(wording, result_url, class: 'pjax') : wording
-          end.to_sentence.html_safe
+            (can_see ? v.link_to(wording, result_url, class: 'pjax') : wording).safe_concat "<br/>"
+          end.join.html_safe
         end
 
         # Accessor whether association is visible or not. By default
