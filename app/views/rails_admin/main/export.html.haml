@@ -14,6 +14,7 @@
       %i.icon-chevron-down
       = t('admin.export.select')
     .control-group
+      %i.icon-chevron-down{ style: "float: left; padding-top: 5px; cursor: pointer", onclick: 'jQuery(this).siblings(".controls").toggle()'}
       %label.control-label{rel: 'tooltip', :'data-original-title' => t('admin.export.click_to_reverse_selection'), onclick: 'jQuery(this).siblings(".controls").find("input").click()'}= t('admin.export.fields_from', name: @model_config.label_plural.downcase)
       .controls
         - visible_fields.select{ |f| !f.association? || f.association.polymorphic? }.each do |field|
@@ -34,8 +35,9 @@
     - visible_fields.select{ |f| f.association? && !f.association.polymorphic? }.each do |field|
       - fields = field.associated_model_config.export.with(controller: self.controller, view: self, object: (associated_model = field.associated_model_config.abstract_model.model).new).visible_fields.select{ |f| !f.association? }
       .control-group
-        %label.control-label{rel: 'tooltip', :'data-original-title' => t('admin.export.click_to_reverse_selection'), onclick: 'jQuery(this).siblings(".controls").find("input").click()'}= t('admin.export.fields_from_associated', name: field.label.downcase)
-        .controls
+        %i.icon-chevron-down{ style: "float: left; padding-top: 5px; cursor: pointer", onclick: 'jQuery(this).siblings(".controls").toggle()'}
+        %label.control-label{rel: 'tooltip', :'data-original-title' => t('admin.export.click_to_reverse_selection'), onclick: 'jQuery(this).siblings(".controls").toggle()'}= t('admin.export.fields_from_associated', name: field.label.downcase)
+        .controls{style: 'display: none;'}
           - fields.each do |associated_model_field|
             - list = associated_model_field.virtual? ? 'methods' : 'only'
             %label.checkbox{for: "schema_include_#{field.name}_#{list}_#{associated_model_field.name}"}
