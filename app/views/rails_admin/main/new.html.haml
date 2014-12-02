@@ -1,5 +1,5 @@
 - if(@industryChoices == true)
-  :javascript      
+  :javascript
     $(document).on("rails_admin.dom_ready", function(){
       
       var addOption = function(values){
@@ -53,11 +53,7 @@
       });
       
       //save focus
-      var selectedFocus = $("select#account_technology_focus").val();
       changeOptions($('select#account_industry').val());
-      //set focus again (if applicable)
-      $("select#account_technology_focus").val(selectedFocus);
-      $("select#account_technology_focus").filteringSelect(); //$("select#account_technology_focus").data('options')
       
     });
 = rails_admin_form_for @object, url: new_path(model_name: @abstract_model.to_param), as: @abstract_model.param_key, html: { multipart: true, class: "form-horizontal denser", data: { title: @page_name } } do |form|

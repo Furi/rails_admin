@@ -18,7 +18,7 @@ module RailsAdmin
           @action = action.with({controller: self, abstract_model: @abstract_model, object: @object})
           @page_name = wording_for(:title)
           @industryChoices = false
-          if(('#{action.action_name}' == "edit") && (@abstract_model.model_name == "Account"))
+          if((('#{action.action_name}' == "edit")||('#{action.action_name}' == "new")) && (@abstract_model.model_name == "Account"))
             @industryChoices = true
           end
 
