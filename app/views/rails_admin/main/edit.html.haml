@@ -1,2 +1,64 @@
+- if(@industryChoices == true)
+  :javascript      
+    $(document).on("rails_admin.dom_ready", function(){
+      
+      var addOption = function(values){
+        var n = values.length;
+        for(var x=0; x<n; x++){
+          $("select#account_technology_focus").append('<option value=' + values[x] + '>' + values[x] + '</option>');
+        }
+      };
+      
+      var changeOptions = function(value){
+        $("select#account_technology_focus").empty();
+        $("select#account_technology_focus").filteringSelect("destroy");
+        if(value == "Agricultural Technology"){
+          addOption(["Biological Agriculture", "Agriculture IT", "Argiculture Other"]);
+        }
+        else if(value == "Food and Beverage"){
+          addOption(["Food and Beverage IT", "Food and Beverage Other"]);
+        }
+        else if(value == "Forestry"){
+          addOption(["Forestry IT", "Forestry Other"]);
+        }
+        else if(value == "Mining"){
+          addOption(["Mining IT", "Mining Other"]);
+        }
+        else if(value == "Financial Services"){
+          addOption(["Financial Services IT", "Financial Services Other"]);
+        }
+        else if(value == "Education"){
+          addOption(["Education IT", "Education Other"]);
+        }
+        else if(value == "Digital Media and ICT"){
+          addOption(["Apps and Software","Hardware","Other"]);
+        }
+        else if(value == "Clean Technologies"){
+          addOption(["Water Technologies","Recycling and Waste Management","Energy and Power Technologies","Clean Technologies Other"]);
+        }
+        else if(value == "Advanced Materials and Manufacturing"){
+          addOption(["Materials and Chemicals", "Manufactured Goods", "Manufacturing Processes", "Advanced Materials and Manufacturing Other"]);
+        }
+        else if(value == "Life Science and Advanced Health"){
+          addOption(["Pharmaceuticals and Drugs", "Medical Devices", "Healthcare IT", "Wellness & Nutrition", "Life Science and Advanced Health Other"]);
+        }
+        else if(value == "Tourism and Culture"){
+          addOption(["Tourism and Culture IT", "Tourism and Culture Other"]);
+        }
+        $("select#account_technology_focus").filteringSelect();
+      };
+      
+      $('select#account_industry').change(function(e){
+        changeOptions($(e.target).val());
+      });
+      
+      //save focus
+      var selectedFocus = $("select#account_technology_focus").val();
+      changeOptions($('select#account_industry').val());
+      //set focus again (if applicable)
+      $("select#account_technology_focus").val(selectedFocus);
+      $("select#account_technology_focus").filteringSelect(); //$("select#account_technology_focus").data('options')
+      
+    });
 = rails_admin_form_for @object, url: edit_path(@abstract_model, @object.id), as: @abstract_model.param_key, html: { method: "put", multipart: true, class: "form-horizontal denser", data: { title: @page_name } } do |form|
   = form.generate action: :update
