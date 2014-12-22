@@ -29,7 +29,12 @@ module RailsAdmin
                 result_url = v.url_for(action: show_action.action_name, model_name: am.to_param, id: associated.id)
               end
             end
-            (can_see ? v.link_to(wording, result_url, class: 'pjax') : wording).safe_concat "<br/>"
+            output = can_see ? v.link_to(wording, result_url, class: 'pjax') : wording
+            if output.class == String
+              output
+            else
+              output.safe_concat "<br/>"
+            end
           end.join.html_safe
         end
 
