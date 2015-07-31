@@ -2,10 +2,21 @@
   :javascript
     $(document).on("rails_admin.dom_ready", function(){
       
+      var selectedFocus = $('input[name="existing_tech_focus"]').val();
+      
       var addOption = function(values){
+
+        //make already-existing tech-focus first value
+        var selectedFocus = $('input[name="existing_tech_focus"]').val();
+        var index = values.indexOf(selectedFocus);
+        if(index > -1){
+          values.splice(index, 1);
+          values.unshift(selectedFocus);
+        }
+
         var n = values.length;
         for(var x=0; x<n; x++){
-          $("select#account_technology_focus").append('<option value=' + values[x] + '>' + values[x] + '</option>');
+          $("select#account_technology_focus").append('<option value="' + values[x] + '">' + values[x] + '</option>');
         }
       };
       
@@ -48,17 +59,15 @@
         $("select#account_technology_focus").filteringSelect();
       };
       
+      //set technology_focus options on page load
+      changeOptions($('select#account_industry').val());
+
+      //set technology_focus options on industry change
       $('select#account_industry').change(function(e){
         changeOptions($(e.target).val());
       });
-      
-      //save focus
-      var selectedFocus = $("select#account_technology_focus").val();
-      changeOptions($('select#account_industry').val());
-      //set focus again (if applicable)
-      $("select#account_technology_focus").val(selectedFocus);
-      $("select#account_technology_focus").filteringSelect(); //$("select#account_technology_focus").data('options')
-      
+            
     });
+%input{:value => @object.technology_focus, :type => 'hidden', :name => 'existing_tech_focus'}
 = rails_admin_form_for @object, url: edit_path(@abstract_model, @object.id), as: @abstract_model.param_key, html: { method: "put", multipart: true, class: "form-horizontal denser", data: { title: @page_name } } do |form|
   = form.generate action: :update
